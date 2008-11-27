@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+import core.Event
+import core.Commands
+import core.Theme
+import core.Terminal
+import core.IOManager
+import core.WindowsManager
+import core.TimerManager
+import traceback
+import time
+import select
+import sys
+
+
+class dMsn:
+ def __init__(self):
+  self.CM = core.Commands.Commands(self)
+  self.T = core.Theme.Theme(self)
+  self.Terminal = core.Terminal.Terminal(self)
+  self.IOManager = core.IOManager.IOManager(self)
+  self.WindowsManager = core.WindowsManager.WindowsManager(self)
+  self.TM = core.TimerManager.TimerManager(self)
+  self.quit = 0
+
+ def go(self):
+  try:
+   while DMsn.quit == 0:
+    DMsn.IOManager.pool()
+  except:
+   self.T.error('Exception occured. Quitting.')
+   self.T.error(traceback.format_exc())
+
+
+
+DMsn = dMsn()
+DMsn.Terminal.load()
+DMsn.Terminal.print_statusbar('')
+DMsn.go()
+DMsn.Terminal.unload()
+
+
+
